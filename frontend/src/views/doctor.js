@@ -45,7 +45,10 @@ function Doctor() {
 
   const HandleBtn = (
     <>
-      <Button onClick={getDoctor}>search</Button>
+      <Button onClick={getDoctor} type="primary">search</Button>
+      <Button onClick={getDoctor} type="ghost">
+        <Link to="/add-doctor">add</Link>
+      </Button>
     </>
   )
   // useEffect 相当于 componentDidMount 和 componentDidUpdate 、componentWillUnmount 的 组合

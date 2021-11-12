@@ -13,6 +13,12 @@ export const api = {
       data
     })
   },
+  editDoctorInfo(data) {
+    return post({
+      url: '/doctor/editDoctor',
+      data
+    })
+  },
   getDoctorDetail(data) {
     return get({
       url: '/doctor/detail',

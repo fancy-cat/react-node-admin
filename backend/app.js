@@ -1,7 +1,11 @@
 const fs = require('fs');
 var path = require("path")
+const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 const port = 3000
 import Doctor from './models/doctorModel';
 // mongodb 数据库
@@ -47,6 +51,18 @@ app.get('/doctor/getDoctorPage', (req, res) => {
   })
 })
 
+// 添加医生
+app.post('/doctor/editDoctor', (req, res) => {
+  const doctor = new Doctor(req.body)
+  doctor.save((err) => {
+    if(!err) {
+      res.end(JSON.stringify({
+        code: 0,
+        msg: '成功'
+      }))
+    }
+  })
+})
 app.listen(port, () => {
   console.log(`app listen at http://localhost:${port}`)
 })

@@ -11,6 +11,7 @@ import Schedule from './views/schedule'
 import Audit from './views/audit'
 import Agreement from './views/agreement'
 import DoctorDetail from './views/doctor-detail'
+import EditDoctor from './views/edit-doctor'
 
 // menuData
 // lightPath 作用是高亮左侧菜单
@@ -23,7 +24,7 @@ export const menuData = [
       {
         name: '医生管理',
         path: '/doctor',
-        lightPath: ['/doctor', 'doctor-detail'],
+        lightPath: ['/doctor', '/doctor-detail', '/add-doctor'],
       }
     ]
   },
@@ -94,5 +95,9 @@ export const routerData = [
   {
     path: '/doctor-detail/:id',
     component: <DoctorDetail/>,
+  },
+  {
+    path: '/add-doctor',
+    component: <EditDoctor/>,
   }
 ]
