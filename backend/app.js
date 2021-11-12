@@ -3,6 +3,20 @@ var path = require("path")
 const express = require('express')
 const app = express()
 const port = 3000
+import Doctor from './models/doctorModel';
+// mongodb 数据库
+const mongoose = require('mongoose');
+const mongodbUrl = 'mongodb://localhost/test'
+mongoose.connect(mongodbUrl, {
+  useNewUrlParser:true,
+  useUnifiedTopology: true
+})
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('数据库连接成功')
+});
 
 // 响应体封装
 function formDataRes(code, data) {
@@ -28,12 +42,21 @@ app.all("*", (req, res, next) => {
 
 // 医生列表
 app.get('/doctor/getDoctorPage', (req, res) => {
-  const list = fs.readFileSync(path.resolve(__dirname, './data/doctor.json'), 'utf8')
-  const resData = formDataRes(0, {
-    list: JSON.parse(list)
-  })
+  // -------- -------- -------- -------- 读取本地json文件
+  // const list = fs.readFileSync(path.resolve(__dirname, './data/doctor.json'), 'utf8')
+  // const resData = formDataRes(0, {
+  //   list: JSON.parse(list)
+  // })
   // 返回的文件 must be one of type string or Buffer
-  res.end(resData)
+  // res.end(resData)
+  // --------- -------- -------- -------- mongoDB   
+  // console.log(doctor)
+  Doctor.find((err, docs) => {
+    const resData = formDataRes(0, {
+      list: docs
+    })
+    res.end(resData)
+  })
 })
 
 // 医生详情
