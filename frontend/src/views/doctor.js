@@ -46,7 +46,7 @@ function Doctor() {
   const HandleBtn = (
     <>
       <Button onClick={getDoctor} type="primary">search</Button>
-      <Button onClick={getDoctor} type="ghost">
+      <Button onClick={getDoctor} type="ghost" style={{marginLeft: '10px'}}>
         <Link to="/add-doctor">add</Link>
       </Button>
     </>
