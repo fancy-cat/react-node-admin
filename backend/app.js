@@ -1,16 +1,11 @@
-const fs = require('fs');
-var path = require("path")
-const bodyParser = require('body-parser')
-const express = require('express')
-const app = express()
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
-const port = 3000
+import bodyParser from 'body-parser'
+import express from 'express'
+import mongoose from 'mongoose'
 import Doctor from './models/doctorModel';
+
 // mongodb 数据库
-const mongoose = require('mongoose');
 const mongodbUrl = 'mongodb://localhost/test'
+const port = 3000
 mongoose.connect(mongodbUrl, {
   useNewUrlParser:true,
   useUnifiedTopology: true
@@ -29,6 +24,12 @@ function formDataRes(code, data) {
     data
   })
 }
+
+// post参数处理
+const app = express()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 
 // 所有请求的全局处理
 app.all("*", (req, res, next) => {
