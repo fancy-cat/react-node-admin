@@ -24,5 +24,11 @@ export const api = {
       url: '/doctor/detail',
       data
     })
+  },
+  deleteDoctor(data) {
+    return get({
+      url: '/doctor/delete',
+      data
+    })
   }
 }

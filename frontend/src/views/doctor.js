@@ -25,9 +25,12 @@ function Doctor() {
     title: '操作',
     key: 'detail',
     render: (text, record) => {
-      return <Button>
-        <Link to={`/doctor-detail/${record.id}`}>详情</Link>
-      </Button>
+      return <>
+        <Button>
+          <Link to={`/doctor-detail/${record.id}`}>详情</Link>
+        </Button>
+        <Button type="danger" style={{marginLeft: '10px'}} onClick={() => deleteDoctor(record)}>delete</Button>
+      </>
     }
   }]
   const getDoctor = async () => {
@@ -38,6 +41,15 @@ function Doctor() {
     if(!res.code) {
       res.data.list.forEach(v => v.key = v.id)
       setList(res.data.list)
+    }
+  }
+  const deleteDoctor = async (record) => {
+    const data = {
+      id: record.id
+    }
+    const res = await api.deleteDoctor(data)
+    if(!res.code) {
+      getDoctor()
     }
   }
   const [list, setList] = useState([]);

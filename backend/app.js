@@ -73,6 +73,26 @@ app.post('/doctor/editDoctor', async (req, res) => {
     }
   })
 })
+
+// 删除医生
+app.get('/doctor/delete', async (req, res) => {
+  const query = {
+    id: req.query.id
+  }
+  const resData = await Doctor.deleteOne(query)
+  if(resData.deletedCount) {
+    res.end(JSON.stringify({
+      code: 0,
+      msg: '成功'
+    }))
+  } else {
+    res.end(JSON.stringify({
+      code: 100,
+      msg: '失败'
+    }))
+  }
+})
+
 app.listen(port, () => {
   console.log(`app listen at http://localhost:${port}`)
 })
