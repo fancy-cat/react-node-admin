@@ -99,5 +99,9 @@ export const routerData = [
   {
     path: '/add-doctor',
     component: <EditDoctor/>,
+  },
+  {
+    path: '/update-doctor/:id',
+    component: <EditDoctor/>,
   }
 ]

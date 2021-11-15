@@ -12,7 +12,7 @@ function DoctorDetail() {
     }
     const res = await api.getDoctorDetail(data)
     if(!res.code) {
-      setInfo(res.data.info)
+      setInfo(res.data)
     }
   }
   useEffect(() => {

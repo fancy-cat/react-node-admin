@@ -53,8 +53,22 @@ app.get('/doctor/getDoctorPage', (req, res) => {
   })
 })
 
+// 查询单个医生信息
+app.get('/doctor/detail', async (req, res) => { 
+  const item = await Doctor.findOne({id: req.query.id})
+  if(item) {
+    const resData = formDataRes(0, item)
+    res.end(resData)
+  } else {
+    res.end(JSON.stringify({
+      code: 100,
+      msg: '查询失败'
+    }))
+  }
+})
+
 // 添加医生
-app.post('/doctor/editDoctor', async (req, res) => {
+app.post('/doctor/add', async (req, res) => {
   // 获取自增长id
   const query = {name: 'doctor'}
   const update = {$inc: {id: 1}}
@@ -81,6 +95,27 @@ app.get('/doctor/delete', async (req, res) => {
   }
   const resData = await Doctor.deleteOne(query)
   if(resData.deletedCount) {
+    res.end(JSON.stringify({
+      code: 0,
+      msg: '成功'
+    }))
+  } else {
+    res.end(JSON.stringify({
+      code: 100,
+      msg: '失败'
+    }))
+  }
+})
+
+// 修改医生
+app.post('/doctor/update', async (req, res) => {
+  const reqData = req.body
+  const query = {
+    id: reqData.id
+  }
+  const update = {$set: reqData}
+  const resData = await Doctor.findOneAndUpdate(query, update)
+  if(resData) {
     res.end(JSON.stringify({
       code: 0,
       msg: '成功'

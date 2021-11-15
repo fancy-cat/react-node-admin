@@ -13,9 +13,15 @@ export const api = {
       data
     })
   },
-  editDoctorInfo(data) {
+  updateDoctor(data) {
     return post({
-      url: '/doctor/editDoctor',
+      url: '/doctor/update',
+      data
+    })
+  },
+  addDoctor(data) {
+    return post({
+      url: '/doctor/add',
       data
     })
   },

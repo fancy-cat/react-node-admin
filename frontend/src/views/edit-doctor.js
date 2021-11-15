@@ -1,22 +1,45 @@
-import React from "react"
-import { Button, Card, Form, Input, InputNumber } from "antd"
+import React, { useEffect, useState } from "react"
+import { Button, Card, Form, Input, InputNumber, message } from "antd"
+import {useParams, useHistory} from 'react-router-dom'
 import { api } from "../api"
 
 function EditDoctor() {
-  const submit = async (data) => {
-    const res = await api.editDoctorInfo(data)
+  const [form] = Form.useForm();
+  const history = useHistory()
+  const currentParams = useParams()
+  const id = currentParams.id;
+  const getDetail = async () => {
+    const data = {
+      id
+    }
+    const res = await api.getDoctorDetail(data)
     if(!res.code) {
-      console.log('提交成功')
+      form.setFieldsValue(res.data)
+    }
+  }
+  const submit = async (data) => {
+    data.id = id ? id : undefined
+    const apiName = id ? 'updateDoctor' : 'addDoctor'
+    const res = await api[apiName](data)
+    if(!res.code) {
+      message.success('提交成功', 1, () => {
+        history.push('/doctor')
+      })
     }
   }
   const onFinish = (values) => {
-    console.log(values)
     submit(values)
   }
+  useEffect(() => {
+    if(id) {
+      getDetail()
+    }
+  }, [id])
   return (
     <Card>
       <Form 
         onFinish={onFinish}
+        form={form}
       >
         <Form.Item label="姓名" name="name">
           <Input/>
