@@ -2,6 +2,7 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import mongoose from 'mongoose'
 import Doctor from './models/doctorModel';
+import Id from './models/idModel'
 
 // mongodb 数据库
 const mongodbUrl = 'mongodb://localhost/test'
@@ -53,8 +54,16 @@ app.get('/doctor/getDoctorPage', (req, res) => {
 })
 
 // 添加医生
-app.post('/doctor/editDoctor', (req, res) => {
-  const doctor = new Doctor(req.body)
+app.post('/doctor/editDoctor', async (req, res) => {
+  // 获取自增长id
+  const query = {name: 'doctor'}
+  const update = {$inc: {id: 1}}
+  const options = {new: true}
+  const doctorId = await Id.findOneAndUpdate(query, update, options)
+  // 插入doctor数据
+  const reqData = req.body
+  reqData.id = doctorId.id
+  const doctor = new Doctor(reqData)
   doctor.save((err) => {
     if(!err) {
       res.end(JSON.stringify({
