@@ -7,6 +7,12 @@ export const api = {
       data
     })
   },
+  loginOut(data) {
+    return post({
+      url: '/user/loginOut',
+      data
+    })
+  },
   getDoctorPage(data) {
     return get({
       url: '/doctor/getDoctorPage',

@@ -2,6 +2,7 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import mongoose from 'mongoose'
 import doctorRouter from './routers/doctor'
+import userRouter from './routers/user'
 // mongodb 数据库
 const mongodbUrl = 'mongodb://localhost/test'
 const port = 3000
@@ -41,6 +42,7 @@ app.all("*", (req, res, next) => {
 })
 
 app.use('/doctor', doctorRouter)
+app.use('/user', userRouter)
 
 app.listen(port, () => {
   console.log(`app listen at http://localhost:${port}`)

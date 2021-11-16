@@ -1,6 +1,6 @@
 import express from 'express'
-import Doctor from './models/doctorModel';
-import Id from './models/idModel'
+import Doctor from '../models/doctorModel';
+import Id from '../models/idModel'
 
 var router = express.Router()
 

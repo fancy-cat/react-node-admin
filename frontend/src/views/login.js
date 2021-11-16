@@ -7,11 +7,10 @@ function Login() {
   const submit = async (data) => {
     const res = await api.login(data)
     if(!res.code) {
-      localStorage.setItem('react-demo-tk', `${res.data.tokenHead}${res.data.token}`)
+      // localStorage.setItem('react-demo-tk', `${res.data.tokenHead}${res.data.token}`)
     }
   }
   const onFinish = (values) => {
-    console.log(values);
     const data = {
       username: values.username,
       password: btoa(encodeURIComponent(values.password))
