@@ -1,7 +1,7 @@
 import express from 'express'
 import Doctor from '../models/doctorModel';
 import Id from '../models/idModel'
-
+import { formDataRes } from '../utils';
 var router = express.Router()
 
 // 医生列表查询
@@ -21,10 +21,7 @@ router.get('/detail', async (req, res) => {
     const resData = formDataRes(0, item)
     res.end(resData)
   } else {
-    res.end(JSON.stringify({
-      code: 100,
-      msg: '查询失败'
-    }))
+    res.end(formDataRes(100, {}, '查询失败'))
   }
 })
 // 添加医生
@@ -40,10 +37,7 @@ router.post('/add', async (req, res) => {
   const doctor = new Doctor(reqData)
   doctor.save((err) => {
     if(!err) {
-      res.end(JSON.stringify({
-        code: 0,
-        msg: '成功'
-      }))
+      res.end(formDataRes(0, {}, '成功'))
     }
   })
 })
@@ -54,15 +48,9 @@ router.get('/delete', async (req, res) => {
   }
   const resData = await Doctor.deleteOne(query)
   if(resData.deletedCount) {
-    res.end(JSON.stringify({
-      code: 0,
-      msg: '成功'
-    }))
+    res.end(formDataRes(0, {}, '成功'))
   } else {
-    res.end(JSON.stringify({
-      code: 100,
-      msg: '失败'
-    }))
+    res.end(formDataRes(100, {}, '失败'))
   }
 })
 // 修改医生
@@ -74,15 +62,9 @@ router.post('/update', async (req, res) => {
   const update = {$set: reqData}
   const resData = await Doctor.findOneAndUpdate(query, update)
   if(resData) {
-    res.end(JSON.stringify({
-      code: 0,
-      msg: '成功'
-    }))
+    res.end(formDataRes(0, {}, '成功'))
   } else {
-    res.end(JSON.stringify({
-      code: 100,
-      msg: '失败'
-    }))
+    res.end(formDataRes(100, {}, '失败'))
   }
 })
 

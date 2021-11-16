@@ -17,14 +17,6 @@ db.once('open', function() {
   console.log('数据库连接成功')
 });
 
-// 响应体封装
-function formDataRes(code, data) {
-  return JSON.stringify({
-    code,
-    data
-  })
-}
-
 // post参数处理
 const app = express()
 app.use(bodyParser.json());
