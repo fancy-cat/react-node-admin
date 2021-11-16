@@ -28,9 +28,6 @@ function Doctor() {
         <Button>
           <Link to={`/doctor-detail/${record.id}`}>详情</Link>
         </Button>
-        <Button style={{marginLeft: '10px'}}>
-          <Link to={`/update-doctor/${record.id}`}>编辑</Link>
-        </Button>
         <Button type="danger" style={{marginLeft: '10px'}} onClick={() => deleteDoctor(record)}>delete</Button>
       </>
     }

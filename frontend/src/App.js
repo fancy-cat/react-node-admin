@@ -1,12 +1,13 @@
 import './App.less';
 import React, { useState } from 'react';
-import { ConfigProvider, Layout, Menu, Breadcrumb } from 'antd';
+import { ConfigProvider, Layout, Menu } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { BrowserRouter as Router,Switch, Route, Link } from 'react-router-dom'
 import { createBrowserHistory } from "history";
 import { menuData, routerData } from './router'
 import Doctor from './views/doctor'
 import MainHeader from './components/header';
+import MyBreadCrumb from './components/breadcrumb';
 import Login from './views/login'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -71,10 +72,7 @@ function App() {
               <MainHeader collapsed={collapsed} toggleC={toggleC}/>
             </Header>
             <Content style={{ margin: '0 16px' }}>
-              <Breadcrumb style={{ margin: '16px 0'}}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb>
+              <MyBreadCrumb />
               <div className="site-layout-background" style={{ minHeight: 360 }}>
               <Switch>
                   {

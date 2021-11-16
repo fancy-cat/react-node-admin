@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import {Card, Descriptions} from 'antd';
+import {Card, Descriptions, Button} from 'antd';
 import { api } from '../api';
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 
 function DoctorDetail() {
   const currentParams = useParams()
@@ -21,6 +21,9 @@ function DoctorDetail() {
     return () => isUnMount = true
   },[])
   return <Card>
+    <Button style={{marginLeft: '10px', float: 'right'}}>
+      <Link to={`/update-doctor/${currentParams.id}`}>编辑</Link>
+    </Button>
     <Descriptions title="医生信息">
       <Descriptions.Item label="姓名">{info.name}</Descriptions.Item>
       <Descriptions.Item label="医院">{info.hospital}</Descriptions.Item>

@@ -75,10 +75,11 @@ export const routerData = [
   {
     path: '/doctor',
     component: <Doctor/>,
+    breadList: [{name: '医生'}, {name: '医生管理'}]
   },
   {
     path: '/medicine',
-    component: <Medicine/>,
+    component: <Medicine/>
   },
   {
     path: '/schedule',
@@ -95,13 +96,29 @@ export const routerData = [
   {
     path: '/doctor-detail/:id',
     component: <DoctorDetail/>,
+    breadList: [
+      {name: '医生'}, 
+      {name: '医生管理', path: '/doctor'}, 
+      {name: '医生详情'}
+    ]
   },
   {
     path: '/add-doctor',
     component: <EditDoctor/>,
+    breadList: [
+      {name: '医生'}, 
+      {name: '医生管理', path: '/doctor'}, 
+      {name: '添加'},
+    ]
   },
   {
     path: '/update-doctor/:id',
     component: <EditDoctor/>,
+    breadList: [
+      {name: '医生'}, 
+      {name: '医生管理', path: '/doctor'}, 
+      {name: '医生详情', path: '/doctor-detail/:id'},
+      {name: '编辑'},
+    ]
   }
 ]
