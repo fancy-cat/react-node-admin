@@ -8,12 +8,12 @@ function EditDoctor() {
   const history = useHistory()
   const currentParams = useParams()
   const id = currentParams.id;
-  const getDetail = async () => {
+  const getDetail = async (isUnMount) => {
     const data = {
       id
     }
     const res = await api.getDoctorDetail(data)
-    if(!res.code) {
+    if(!res.code && !isUnMount) {
       form.setFieldsValue(res.data)
     }
   }
@@ -31,9 +31,11 @@ function EditDoctor() {
     submit(values)
   }
   useEffect(() => {
+    let isUnMount = false
     if(id) {
-      getDetail()
+      getDetail(isUnMount)
     }
+    return () => isUnMount = true
   }, [id])
   return (
     <Card>

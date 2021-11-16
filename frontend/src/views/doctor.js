@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import FormWrap from '../components/search-wrap'
 import { Form, Input, Button, Card, Table } from 'antd';
 import {Link} from 'react-router-dom'
-// import { useLocation } from 'react-router-dom'
 import { api } from '../api';
 
 function Doctor() {
@@ -36,12 +35,12 @@ function Doctor() {
       </>
     }
   }]
-  const getDoctor = async () => {
+  const getDoctor = async (isUnMount) => {
     const data = {
       keyword: keyword
     }
     const res = await api.getDoctorPage(data)
-    if(!res.code) {
+    if(!res.code && !isUnMount) {
       res.data.list.forEach(v => v.key = v.id)
       setList(res.data.list)
     }
@@ -68,7 +67,9 @@ function Doctor() {
   )
   // useEffect 相当于 componentDidMount 和 componentDidUpdate 、componentWillUnmount 的 组合
   useEffect(() => {
-    getDoctor()
+    let isUnMount = false
+    getDoctor(isUnMount)
+    return () => isUnMount = true
   },[])
   const onKeywordChange = (e) => {
     setKeyword(e.target.value)

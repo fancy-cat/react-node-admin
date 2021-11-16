@@ -6,17 +6,19 @@ import {useParams} from 'react-router-dom'
 function DoctorDetail() {
   const currentParams = useParams()
   const [info, setInfo] = useState({});
-  const getDetail = async () => {
+  const getDetail = async (isUnMount) => {
     const data = {
       id: currentParams.id
     }
     const res = await api.getDoctorDetail(data)
-    if(!res.code) {
+    if(!res.code && !isUnMount) {
       setInfo(res.data)
     }
   }
   useEffect(() => {
-    getDetail()
+    let isUnMount = false
+    getDetail(isUnMount)
+    return () => isUnMount = true
   },[])
   return <Card>
     <Descriptions title="医生信息">
