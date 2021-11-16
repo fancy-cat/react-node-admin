@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Button, Card, Form, Input, InputNumber, message } from "antd"
+import { Button, Card, Form, Input, message } from "antd"
 import {useParams, useHistory} from 'react-router-dom'
 import { api } from "../api"
 
@@ -45,9 +45,6 @@ function EditDoctor() {
       >
         <Form.Item label="姓名" name="name">
           <Input/>
-        </Form.Item>
-        <Form.Item label="年龄" name="age">
-          <InputNumber/>
         </Form.Item>
         <Form.Item label="医院" name="hospital">
           <Input/>
