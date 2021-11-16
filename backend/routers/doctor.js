@@ -37,7 +37,9 @@ router.post('/add', async (req, res) => {
   const doctor = new Doctor(reqData)
   doctor.save((err) => {
     if(!err) {
-      res.end(formDataRes(0, {}, '成功'))
+      res.end(formDataRes(0, {
+        id: doctorId.id
+      }, '成功'))
     }
   })
 })

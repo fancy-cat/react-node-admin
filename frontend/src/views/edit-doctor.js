@@ -23,7 +23,7 @@ function EditDoctor() {
     const res = await api[apiName](data)
     if(!res.code) {
       message.success('提交成功', 1, () => {
-        history.push(`/doctor-detail/${id}`)
+        history.push(`/doctor-detail/${data.id ? data.id : res.data.id}`)
       })
     }
   }
