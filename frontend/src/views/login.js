@@ -2,12 +2,15 @@ import React from 'react'
 import {Form, Input, Button} from 'antd'
 import '../style/login.less'
 import { api } from '../api'
+import { useDispatch } from 'react-redux'
+import {setUser} from '../redux/actions/userActions'
 
 function Login() {
+  const dispatch = useDispatch()
   const submit = async (data) => {
     const res = await api.login(data)
     if(!res.code) {
-      // localStorage.setItem('react-demo-tk', `${res.data.tokenHead}${res.data.token}`)
+      dispatch(setUser(res.data))
     }
   }
   const onFinish = (values) => {

@@ -7,7 +7,7 @@ router.post('/login', async (req, res) => {
   const user = new User(req.body)
   const resData = await user.save()
   if(resData) {
-    res.end(formDataRes(0, {}, '登录成功'))
+    res.end(formDataRes(0, req.body, '登录成功'))
   } else {
     res.end(formDataRes(100, {}, '登录失败'))
   }
