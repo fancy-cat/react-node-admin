@@ -1,5 +1,5 @@
 import Axios from 'axios'
-
+import store from './redux/store'
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const instance = Axios.create({
@@ -11,7 +11,7 @@ const instance = Axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  let tk = localStorage.getItem('react-demo-tk')
+  const tk = store.getState().userInfo.tk
   if(tk) {
     config.headers.Authorization = tk;
   }

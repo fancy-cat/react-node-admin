@@ -1,16 +1,23 @@
 import React from 'react'
-import {Form, Input, Button} from 'antd'
+import {Form, Input, Button, message} from 'antd'
 import '../style/login.less'
 import { api } from '../api'
 import { useDispatch } from 'react-redux'
-import {setUser} from '../redux/actions/userActions'
+import { setUser } from '../redux/actions/userActions'
+import { useHistory } from 'react-router-dom'
 
 function Login() {
+  const history = useHistory()
   const dispatch = useDispatch()
   const submit = async (data) => {
     const res = await api.login(data)
     if(!res.code) {
       dispatch(setUser(res.data))
+      message.success('登录成功', 1, () => {
+        history.push('/')
+      })
+    } else {
+      message.error(res.msg, 1)
     }
   }
   const onFinish = (values) => {
