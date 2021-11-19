@@ -9,6 +9,7 @@ import Doctor from './views/doctor'
 import MainHeader from './components/header';
 import MyBreadCrumb from './components/breadcrumb';
 import Login from './views/login'
+
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -33,66 +34,69 @@ function App() {
   const toggleC = () => {
     setCollapsed(!collapsed)
   }
-
+  
   return (
     <ConfigProvider locale={zhCN}>
       <Router>
-        {history.location.pathname === '/login' ? 
-          <Route path="/login"><Login/></Route> :
-          <Layout style={{ minHeight: '100vh' }}>
-            <Sider 
-              collapsed={collapsed}
-            >
-              <div className="logo">{collapsed ? "" : "后台DEMO"}</div>
-              <Menu 
-                theme="dark"
-                defaultOpenKeys={[defaultOK]} 
-                defaultSelectedKeys={[defaultSK]}
-                mode="inline"
+        <Switch>
+          <Route path="/login"><Login/></Route> 
+          <Route>
+            <Layout style={{ minHeight: '100vh' }}>
+              <Sider 
+                collapsed={collapsed}
               >
-                {
-                  menuData.map(subM => (
-                    <SubMenu key={subM.key} icon={subM.icon} title={subM.name}>
-                      {
-                        subM.children && subM.children.length > 0 ? (
-                          subM.children.map(sub => (
-                          <Menu.Item key={sub.path}>
-                            <Link to={sub.path}>{sub.name}</Link>
-                          </Menu.Item>
-                          ))
-                        ) : ''
-                      }
-                    </SubMenu>
-                  ))
-                }
-              </Menu>
-            </Sider>
-          <Layout className="site-layout">
-            <Header style={{ padding: 0, background: '#fff' }}>
-              <MainHeader collapsed={collapsed} toggleC={toggleC}/>
-            </Header>
-            <Content style={{ margin: '0 16px' }}>
-              <MyBreadCrumb />
-              <div className="site-layout-background" style={{ minHeight: 360 }}>
-              <Switch>
+                <div className="logo">{collapsed ? "" : "后台DEMO"}</div>
+                <Menu 
+                  theme="dark"
+                  defaultOpenKeys={[defaultOK]} 
+                  defaultSelectedKeys={[defaultSK]}
+                  mode="inline"
+                >
                   {
-                    routerData.map((r) => (
-                      <Route path={r.path} key={r.path}>
-                        {r.component}
-                      </Route>
+                    menuData.map(subM => (
+                      <SubMenu key={subM.key} icon={subM.icon} title={subM.name}>
+                        {
+                          subM.children && subM.children.length > 0 ? (
+                            subM.children.map(sub => (
+                            <Menu.Item key={sub.path}>
+                              <Link to={sub.path}>{sub.name}</Link>
+                            </Menu.Item>
+                            ))
+                          ) : ''
+                        }
+                      </SubMenu>
                     ))
                   }
-                  {/* / 放在最后面, 因为其他路由没有加exact（严格匹配）会模糊匹配到它 */}
-                  <Route path="/">
-                    <Doctor/>
-                  </Route>
-              </Switch>
-              </div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>解释权归宝儿姐所有</Footer>
+                </Menu>
+              </Sider>
+            <Layout className="site-layout">
+              <Header style={{ padding: 0, background: '#fff' }}>
+                <MainHeader collapsed={collapsed} toggleC={toggleC}/>
+              </Header>
+              <Content style={{ margin: '0 16px' }}>
+                <MyBreadCrumb />
+                <div className="site-layout-background" style={{ minHeight: 360 }}>
+                <Switch>
+                    {
+                      routerData.map((r) => (
+                        <Route path={r.path} key={r.path}>
+                          {r.component}
+                        </Route>
+                      ))
+                    }
+                    {/* / 放在最后面, 因为其他路由没有加exact（严格匹配）会模糊匹配到它 */}
+                    <Route path="/">
+                      <Doctor/>
+                    </Route>
+                </Switch>
+                </div>
+              </Content>
+              <Footer style={{ textAlign: 'center' }}>解释权归宝儿姐所有</Footer>
+            </Layout>
           </Layout>
-        </Layout>
-        }
+          </Route>
+        </Switch>
+      
       </Router>
     </ConfigProvider>
   );
