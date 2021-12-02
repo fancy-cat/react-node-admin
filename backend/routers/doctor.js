@@ -10,8 +10,9 @@ router.get('/getDoctorPage', (req, res) => {
     const resData = formDataRes(0, {
       list: docs
     })
-    // 返回的文件 must be one of type string or Buffer
-    res.end(resData)
+    // res.end 返回的文件 must be one of type string or Buffer
+    // res.send 返回的文件 JSON Obj array string or Buffer 都可
+    res.send(resData)
   })
 })
 // 查询单个医生信息
@@ -19,9 +20,9 @@ router.get('/detail', async (req, res) => {
   const item = await Doctor.findOne({id: req.query.id})
   if(item) {
     const resData = formDataRes(0, item)
-    res.end(resData)
+    res.send(resData)
   } else {
-    res.end(formDataRes(100, {}, '查询失败'))
+    res.send(formDataRes(100, {}, '查询失败'))
   }
 })
 // 添加医生
@@ -37,7 +38,7 @@ router.post('/add', async (req, res) => {
   const doctor = new Doctor(reqData)
   doctor.save((err) => {
     if(!err) {
-      res.end(formDataRes(0, {
+      res.send(formDataRes(0, {
         id: doctorId.id
       }, '成功'))
     }
@@ -50,9 +51,9 @@ router.get('/delete', async (req, res) => {
   }
   const resData = await Doctor.deleteOne(query)
   if(resData.deletedCount) {
-    res.end(formDataRes(0, {}, '成功'))
+    res.send(formDataRes(0, {}, '成功'))
   } else {
-    res.end(formDataRes(100, {}, '失败'))
+    res.send(formDataRes(100, {}, '失败'))
   }
 })
 // 修改医生
@@ -64,9 +65,9 @@ router.post('/update', async (req, res) => {
   const update = {$set: reqData}
   const resData = await Doctor.findOneAndUpdate(query, update)
   if(resData) {
-    res.end(formDataRes(0, {}, '成功'))
+    res.send(formDataRes(0, {}, '成功'))
   } else {
-    res.end(formDataRes(100, {}, '失败'))
+    res.send(formDataRes(100, {}, '失败'))
   }
 })
 

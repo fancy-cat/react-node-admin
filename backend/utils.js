@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken'
 
 export const formDataRes = (code, data, msg) => {
   // 响应体封装
-  return JSON.stringify({
+  return {
     code,
     data,
     msg
-  })
+  }
 }
 const secretKey = 'private_key' // 随便写的
 // 生成tk

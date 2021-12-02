@@ -9,9 +9,9 @@ router.post('/login', async (req, res) => {
   const resData = await user.save()
   const tk = generateToken(req.body) // 生成token
   if(resData) {
-    res.end(formDataRes(0, {tk, ...req.body}, '登录成功'))
+    res.send(formDataRes(0, {tk, ...req.body}, '登录成功'))
   } else {
-    res.end(formDataRes(100, {}, '登录失败'))
+    res.send(formDataRes(100, {}, '登录失败'))
   }
 })
 router.post('/loginOut', (req, res) => {

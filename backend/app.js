@@ -40,10 +40,10 @@ app.use('/*', (req, res, next) => {
   // 验证token authorization小写开头
   const verifyResult = verifyToken(req.headers.authorization)
   if(verifyResult) {
-    res.end(JSON.stringify({
+    res.send({
       code: 404,
       msg: 'token无效'
-    }))
+    })
   } else {
     next()
   }
