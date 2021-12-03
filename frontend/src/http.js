@@ -1,5 +1,7 @@
 import Axios from 'axios'
 import store from './redux/store'
+import { message } from 'antd';
+
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const instance = Axios.create({
@@ -24,6 +26,19 @@ instance.interceptors.request.use(function (config) {
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
+  if(response.data.code) {
+    switch(response.data.code) {
+      case 404:
+        // token无效，返回登录页面
+        message.error(response.data.msg, 1, () => {
+          // 除了location.href做跳转，暂时没有找到更好的办法 
+          window.location.href = '/login'
+        })
+        break
+      default:
+        message.error(response.data.msg)
+    }
+  }
   return response;
 }, function (error) {
   // 对响应错误做点什么
