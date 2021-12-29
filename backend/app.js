@@ -20,15 +20,15 @@ db.once('open', function() {
 
 // post参数处理
 const app = express()
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 
 // 所有请求的全局处理
 app.all("*", (req, res, next) => {
   //设置允许跨域的域名，*代表允许任意域名跨域
   res.header("Access-Control-Allow-Origin","http://localhost:3001");
-  //允许的header类型
+  //允许的header类型 Authorization手动添加进去
   res.header("Access-Control-Allow-Headers","content-type, Authorization");
   res.header("Content-Type", "application/json")
   next()
